@@ -1,4 +1,4 @@
-/*
+
 body  {
 	color: #000000;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -24,7 +24,7 @@ div.center {
 #logo {
 	width : 150px;
 }
-/*
+
 header ul.menu {
 	float: right;
 	display: block;
@@ -58,7 +58,7 @@ header ul.dropdown-menu a {
 /* fin header */
 
 /* Main content */
-/*
+
 #main-content {
 	margin-top : 55px;
 }
@@ -71,7 +71,7 @@ header ul.dropdown-menu a {
 /* fin Main content */
 
 /* footer */
-/*
+
 footer {
 	background-image : linear-gradient(#222, #222);
 	clear : both;
