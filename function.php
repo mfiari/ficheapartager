@@ -13,7 +13,7 @@ function generateToken ($length = 32) {
 }
 
 function generatePassword ($length = 8) {
-	$characters = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_#*$+=";
+	$characters = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	$chaine = "";
 	$nbChar = strlen($characters);
 	while (strlen($chaine) < $length) {
@@ -88,6 +88,10 @@ function writeLog ($type, $texte, $level = LOG_LEVEL_INFO, $message = null) {
 	fclose($logfile);
 	if ($level == LOG_LEVEL_ERROR) {
 		send_mail ("informatique@homemenus.fr", "Erreur de type ".$type, $mailMessage);
+	}
+	if (ENVIRONNEMENT == "DEV" || ENVIRONNEMENT == "TEST") {
+		echo "Erreur de type $type";
+		var_dump($texte);
 	}
 }
 
