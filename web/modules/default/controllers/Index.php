@@ -63,7 +63,7 @@ class Controller_Index extends Controller_Default_Template {
 		$categorie = new Model_Public_Categorie();
 		$categorie->parent_categorie = $parent;
 		$request->categories = $categorie->load();
-		$path = $categorie->getParentPath();
+		$request->path = $categorie->getParentPath();
 		$request->title = "Index";
 		$request->vue = $this->render("default/home.php");
 	}

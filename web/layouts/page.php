@@ -33,13 +33,24 @@
 			</header>
 			<div id="sidr">
 				<!-- Your content -->
-				<ul>
-					<li class="active"><a href="">Accueil</a></li>
-					<li><a data-toggle="modal" data-target="#subscribe-modal">Inscription</a></li>
-					<li><a data-toggle="modal" data-target="#login-modal">Connexion</a></li>
-					<li><a href="?controler=contact">Contact</a></li>
-					<li><a href="?action=faq">FAQ</a></li>
-				</ul>
+				<?php if ($request->_auth) : ?>
+					<ul>
+						<li class="active"><a href="">Accueil</a></li>
+						<li><a href="?controler=compte&action=subscribe">Mes fiches</a></li>
+						<li><a href="?controler=compte&action=subscribe">Mon compte</a></li>
+						<li><a href="?controler=contact">Contact</a></li>
+						<li><a href="?action=faq">FAQ</a></li>
+						<li><a href="?action=faq">Déconnexion</a></li>
+					</ul>
+				<?php else : ?>
+					<ul>
+						<li class="active"><a href="">Accueil</a></li>
+						<li><a href="?controler=compte&action=subscribe">Inscription</a></li>
+						<li><a data-toggle="modal" data-target="#login-modal">Connexion</a></li>
+						<li><a href="?controler=contact">Contact</a></li>
+						<li><a href="?action=faq">FAQ</a></li>
+					</ul>
+				<?php endif; ?>
 			</div>
 			<div id="main-content">
 				<div class="container">

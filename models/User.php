@@ -4,6 +4,8 @@ class Model_User extends Model_Template {
 	
 	private $id;
 	private $nom;
+	private $prenom;
+	private $pseudo;
 	private $email;
 	private $password;
 	private $compte;
@@ -44,8 +46,20 @@ class Model_User extends Model_Template {
 		return $value === false;
 	}
 	
+	public function isPseudoAvailable () {
+		$sql = "SELECT uid FROM users WHERE pseudo = :pseudo";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(":pseudo", $this->pseudo);
+		if (!$stmt->execute()) {
+			writeLog(SQL_LOG, $stmt->errorInfo(), LOG_LEVEL_ERROR, $sql);
+			return false;
+		}
+		$value = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $value === false;
+	}
+	
 	public function get () {
-		$sql = "SELECT nom, gcm_token FROM users WHERE uid = :uid";
+		$sql = "SELECT nom, prenom, pseudo, email, compte, inscription_token, is_enable, date_creation FROM users WHERE uid = :uid";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":uid", $this->id);
 		if (!$stmt->execute()) {
@@ -55,7 +69,13 @@ class Model_User extends Model_Template {
 		}
 		$value = $stmt->fetch(PDO::FETCH_ASSOC);
 		$this->nom = $value['nom'];
-		$this->gcm_token = $value['gcm_token'];
+		$this->prenom = $value['prenom'];
+		$this->pseudo = $value['pseudo'];
+		$this->email = $value['email'];
+		$this->compte = $value['compte'];
+		$this->inscription_token = $value['inscription_token'];
+		$this->is_enable = $value['is_enable'];
+		$this->date_creation = $value['date_creation'];
 		return $this;
 	}
 	
@@ -67,10 +87,12 @@ class Model_User extends Model_Template {
 	}
 	
 	public function insert() {
-		$sql = "INSERT INTO users (nom, email, password, compte, inscription_token, is_enable, date_creation) 
-		VALUES (:nom, :email, sha1(:password), :compte, :token, false, now())";
+		$sql = "INSERT INTO users (nom, prenom, pseudo, email, password, compte, inscription_token, is_enable, date_creation) 
+		VALUES (:nom, :prenom, :pseudo, :email, sha1(:password), :compte, :token, false, now())";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":nom", $this->nom);
+		$stmt->bindValue(":prenom", $this->prenom);
+		$stmt->bindValue(":pseudo", $this->pseudo);
 		$stmt->bindValue(":email", $this->email);
 		$stmt->bindValue(":password", $this->password);
 		$stmt->bindValue(":compte", $this->compte);

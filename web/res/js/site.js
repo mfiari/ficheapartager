@@ -25,14 +25,32 @@ $(function() {
 	
 	$("#loginForm").submit(function(event) {
 		event.preventDefault();
+		showLoading('loginButton', true);
 		console.log($("#loginForm"));
 		$.ajax({
 			type: "POST",
-			url: WS_URL+"index.php?module=user&action=login",
+			url: $("#loginForm").attr('action'),
 			dataType: "html",
 			data: $("#loginForm").serialize()
 		}).done(function( msg ) {
-			
+			location.reload();
+		}).error(function(jqXHR, textStatus, errorThrown) {
+			switch (jqXHR.status) {
+				case 400 :
+					$("#login-modal .modal-footer div.alert-danger span.message").html("Login ou mot de passe vide");
+					break;
+				case 403 :
+					$("#login-modal .modal-footer div.alert-danger span.message").html("<p>Votre compte est désactivé</p><p>Vérifiez dans votre boite mail que vous avez bien reçu le mail de confirmation d'inscription</p><p>Sinon <a href='?controler=contact'>contactez-nous</a></p>");
+					break;
+				case 404 :
+					$("#login-modal .modal-footer div.alert-danger span.message").html("Login ou mot de passe incorrect");
+					break;
+				default :
+					$("#login-modal .modal-footer div.alert-danger span.message").html("Une erreur est survenu, veuillez réessayé.");
+					break;
+			}
+			$("#login-modal .modal-footer div.alert-danger").css('display', 'block');
+			hideLoading('loginButton', true);
 		});
 	});
 });
@@ -87,5 +105,19 @@ function addParentPath (WS_URL, parentCategorie, myElement) {
 			$('<span />').html(parentCategorie.nom)
 		);
 	}
-	
+}
+
+function showLoading (divid, hide) {
+	if (hide) {
+		$("#"+divid).css('display', 'none');
+	}
+	$("#"+divid).after('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+}
+
+function hideLoading (divid, show) {
+	if (show) {
+		$("#"+divid).css('display', 'block');
+	}
+	console.log($("#"+divid).next());
+	$("#"+divid).next(".glyphicon-refresh").remove();
 }

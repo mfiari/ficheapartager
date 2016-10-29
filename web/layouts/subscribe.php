@@ -6,10 +6,18 @@
 				<h4 class="modal-title">Inscription</h4>
 			</div>
 			<div class="modal-body">
-				<form method="post" enctype="x-www-form-urlencoded" id="subscribeForm" action="<?php echo WS_URL.'index.php?module=user&action=subscribe'; ?>">
+				<form method="post" enctype="x-www-form-urlencoded" id="subscribeForm" action="index.php?controler=compte&action=subscribe">
 					<div class="form-group">
 						<label for="name">nom<span class="required">*</span> : </label>
 						<input id="name" class="form-control" name="name" type="text" required>
+					</div>
+					<div class="form-group">
+						<label for="prenom">prenom<span class="required">*</span> : </label>
+						<input id="prenom" class="form-control" name="prenom" type="text" required>
+					</div>
+					<div class="form-group">
+						<label for="pseudo">pseudo<span class="required">*</span> : </label>
+						<input id="pseudo" class="form-control" name="pseudo" type="text" required>
 					</div>
 					<div class="form-group">
 						<label for="email">email<span class="required">*</span> : </label>

@@ -17,7 +17,8 @@ if (isset($_SESSION["uid"])) {
 	include_once ROOT_PATH."models/Template.php";
 	include_once ROOT_PATH."models/User.php";
 	$user = new Model_User();
-	if ($user->getById($_SESSION["uid"])) {
+	$user->id = $_SESSION["uid"];
+	if ($user->getById()) {
 		$request->_auth = $user;
 	} else {
 		session_destroy();
