@@ -83,6 +83,24 @@ class Model_Public_Categorie extends Model_Template {
 		return $list;
 	}
 	
+	public function loadFiches () {
+		$sql = "SELECT id, titre FROM public_fiche WHERE categorie = :categorie ORDER BY titre ASC";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(":categorie", $this->parent_categorie);
+		if (!$stmt->execute()) {
+			return false;
+		}
+		$fiches = $stmt->fetchAll();
+		$list = array();
+		foreach ($fiches as $f) {
+			$fiche = new Model_Public_Fiche(false);
+			$fiche->id = $f["id"];
+			$fiche->titre = $f["titre"];
+			$list[] = $fiche;
+		}
+		return $list;
+	}
+	
 	public function getParentPath () {
 		if ($this->parent_categorie != 0) {
 			$sql = "SELECT id, nom, parent FROM public_categorie WHERE id = :id";

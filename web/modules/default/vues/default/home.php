@@ -18,4 +18,12 @@
 			<hr />
 		<?php endforeach; ?>
 	</div>
+	<div class="row">
+		<?php foreach ($request->fiches as $fiche) : ?>
+			<div>
+				<span><a href="?controler=fiche&action=view&id=<?php echo $fiche->id; ?>"><?php echo utf8_encode($fiche->titre); ?></a></span>
+			</div>
+			<hr />
+		<?php endforeach; ?>
+	</div>
 </div>

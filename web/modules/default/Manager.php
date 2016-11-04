@@ -19,6 +19,11 @@ class Default_Manager {
 					$controller = new Controller_Compte();
 					$controller->manage($request);
 					break;
+				case "fiche" :
+					include_once WEBSITE_PATH."modules/default/controllers/Fiche.php";
+					$controller = new Controller_Fiche();
+					$controller->manage($request);
+					break;
 				case "contact" :
 					include_once WEBSITE_PATH."modules/default/controllers/Contact.php";
 					$controller = new Controller_Contact();

@@ -3,6 +3,7 @@
 include_once MODEL_PATH."Template.php";
 include_once MODEL_PATH."User.php";
 include_once MODEL_PATH."PublicCategorie.php";
+include_once MODEL_PATH."PublicFiche.php";
 
 class Controller_Index extends Controller_Default_Template {
 	
@@ -64,6 +65,7 @@ class Controller_Index extends Controller_Default_Template {
 		$categorie->parent_categorie = $parent;
 		$request->categories = $categorie->load();
 		$request->path = $categorie->getParentPath();
+		$request->fiches = $categorie->loadFiches();
 		$request->title = "Index";
 		$request->vue = $this->render("default/home.php");
 	}
