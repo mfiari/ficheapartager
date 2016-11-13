@@ -19,6 +19,9 @@ class Controller_Fiche extends Controller_Default_Template {
 				case "fiche" :
 					$this->fiche($request);
 					break;
+				case "create" :
+					$this->create($request);
+					break;
 				case "view" :
 					$this->view($request);
 					break;
@@ -62,6 +65,24 @@ class Controller_Fiche extends Controller_Default_Template {
 		} else {
 			$this->redirect();
 		}
+	}
+	
+	public function create ($request) {
+		if (!$request->_auth) {
+			$this->redirect();
+		}
+		if ($request->request_method == "POST") {
+			$modelFiche = new Model_Public_Fiche();
+			$modelFiche->user = $request->_auth;
+			$modelFiche->titre = $_POST['title'];
+			$modelFiche->categorie = $_POST['categorie'];
+			$modelFiche->text = $_POST['text'];
+			$modelFiche->url_image = null;
+			$modelFiche->save();
+		}
+		$request->title = "Fiche";
+		$request->javascripts = array("res/lib/tinymce/jquery.tinymce.min.js", "res/lib/tinymce/tinymce.min.js");
+		$request->vue = $this->render("fiche/createFiche.php");
 	}
 	
 	public function view ($request) {

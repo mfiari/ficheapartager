@@ -32,12 +32,14 @@ class Model_Public_Fiche extends Model_Template {
 	}
 	
 	public function save () {
-		$sql = "INSERT INTO public_categorie (nom, parent, ordre) 
-		VALUES (:nom, :parent, :ordre)";
+		$sql = "INSERT INTO public_fiche (id_user, titre, categorie, text, url_image) 
+		VALUES (:user, :titre, :categorie, :text, :url_image)";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindValue(":nom", $this->nom);
-		$stmt->bindValue(":parent", $this->parent_categorie);
-		$stmt->bindValue(":ordre", $this->ordre);
+		$stmt->bindValue(":user", $this->user->id);
+		$stmt->bindValue(":titre", $this->titre);
+		$stmt->bindValue(":categorie", $this->categorie);
+		$stmt->bindValue(":text", $this->text);
+		$stmt->bindValue(":url_image", $this->url_image);
 		if (!$stmt->execute()) {
 			var_dump($stmt->errorInfo());
 			return false;

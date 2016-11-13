@@ -11,11 +11,25 @@
 		<script type="text/javascript" src="res/js/site.js"></script>
 		<script type="text/javascript" src="res/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript" src="res/sidr/jquery.sidr.min.js"></script>
+		<?php 
+			if ($request->hasProperty('javascripts')) {
+				foreach ($request->javascripts as $js) {
+					echo '<script type="text/javascript" src="'.$js.'"></script>';
+				}
+			}
+		?>
 			
 		<link rel="stylesheet" href="res/css/site.css" type="text/css"/>
 		<link rel="stylesheet" href="res/jquery-ui/jquery-ui.css" type="text/css"/>
 		<link rel="stylesheet" href="res/bootstrap/css/bootstrap.min.css" type="text/css"/>
 		<link rel="stylesheet" href="res/sidr/stylesheets/jquery.sidr.dark.min.css" type="text/css"/>
+		<?php
+			if ($request->hasProperty('stylesheets')) {
+				foreach ($request->stylesheets as $css) {
+					echo '<link rel="stylesheet" href="'.$css.'" type="text/css"/>';
+				}
+			}
+		?>
 	</head>
 	<body>
 		<?php include('layouts/login.html'); ?>
@@ -32,11 +46,10 @@
 				</div>
 			</header>
 			<div id="sidr">
-				<!-- Your content -->
 				<?php if ($request->_auth) : ?>
 					<ul>
 						<li class="active"><a href="">Accueil</a></li>
-						<li><a href="?controler=compte&action=subscribe">Mes fiches</a></li>
+						<li><a href="?controler=fiche">Mes fiches</a></li>
 						<li><a href="?controler=compte&action=subscribe">Mon compte</a></li>
 						<li><a href="?controler=contact">Contact</a></li>
 						<li><a href="?action=faq">FAQ</a></li>
