@@ -29,6 +29,7 @@ class Controller_Public_Categorie extends Controller_Template {
 		$categorie->parent_categorie = $parent;
 		$list = $categorie->load();
 		$path = $categorie->getParentPath();
+		$fiches = $categorie->loadFiches();
 		require 'vue/categorie/public/list.'.$this->ext.'.php';
 	}
 	

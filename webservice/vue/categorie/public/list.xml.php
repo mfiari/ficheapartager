@@ -14,6 +14,19 @@
 		$categoriesDom->appendChild($categorieDom);
 		$nbResult++;
 	}
+	
+	$fichesDom = $dom->createElement("fiches");
+	foreach ($fiches as $fiche) {
+		$ficheDom = $dom->createElement("fiche");
+		$ficheDom->setAttribute("id", $fiche->id);
+		$nodeTitre = $dom->createElement("titre");
+		$texteTitre = $dom->createTextNode(utf8_encode($fiche->titre));
+		$nodeTitre->appendChild($texteTitre);
+		$ficheDom->appendChild($nodeTitre);
+		$fichesDom->appendChild($ficheDom);
+		$nbResult++;
+	}
+	$categoriesDom->appendChild($fichesDom);
 	$categoriesDom->setAttribute("nbResult", $nbResult);
 	header("Content-type: text/xml; charset=utf-8");
 	print $dom->saveXML();
