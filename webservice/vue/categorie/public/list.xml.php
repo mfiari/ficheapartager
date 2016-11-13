@@ -1,32 +1,20 @@
 <?php
 	
 	$dom = new DOMDocument();
-	$formulesDom = $dom->createElement("formules");
-	$dom->appendChild($formulesDom);
+	$categoriesDom = $dom->createElement("categories");
+	$dom->appendChild($categoriesDom);
 	$nbResult = 0;
-	foreach ($formules as $code => $value) {
-		$formule = $dom->createElement("formule");
-		$formulesDom->appendChild($formule);
-		$formule->setAttribute("code", $code);
+	foreach ($list as $categorie) {
+		$categorieDom = $dom->createElement("categorie");
+		$categorieDom->setAttribute("id", $categorie->id);
 		$nodeNom = $dom->createElement("nom");
-		$texteNom = $dom->createTextNode($value["nom"]);
+		$texteNom = $dom->createTextNode(utf8_encode($categorie->nom));
 		$nodeNom->appendChild($texteNom);
-		$formule->appendChild($nodeNom);
-		$nodeCategories = $dom->createElement("categories");
-		$categories = $value["categorie"];
-		foreach ($categories as $indice => $categorie) {
-			$nodeCategorie = $dom->createElement("categorie");
-			$nodeCategorie->setAttribute("id", $categorie["id"]);
-			$nodeNomCategorie = $dom->createElement("nom");
-			$texteNomCategorie = $dom->createTextNode($categorie["nom"]);
-			$nodeNomCategorie->appendChild($texteNomCategorie);
-			$nodeCategorie->appendChild($nodeNomCategorie);
-			$nodeCategories->appendChild($nodeCategorie);
-		}
-		$formule->appendChild($nodeCategories);
+		$categorieDom->appendChild($nodeNom);
+		$categoriesDom->appendChild($categorieDom);
 		$nbResult++;
 	}
-	$formulesDom->setAttribute("nbResult", $nbResult);
+	$categoriesDom->setAttribute("nbResult", $nbResult);
 	header("Content-type: text/xml; charset=utf-8");
 	print $dom->saveXML();
 	
