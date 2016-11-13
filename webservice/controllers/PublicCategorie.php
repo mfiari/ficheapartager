@@ -2,6 +2,7 @@
 
 include_once MODEL_PATH.'Template.php';
 include_once MODEL_PATH.'PublicCategorie.php';
+include_once MODEL_PATH.'PublicFiche.php';
 
 class Controller_Public_Categorie extends Controller_Template {
 	
