@@ -1,0 +1,8 @@
+services:
+    Mfiari\Bootstrap4Bundle\Twig\FlashAlertExtension:
+        class: Mfiari\Bootstrap4Bundle\Twig\FlashAlertExtension
+        arguments: ["@session"]
+        tags: ["twig.extension"]
+#    mfiari_bootstrap4.example:
+#        class: Mfiari\Bootstrap4Bundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

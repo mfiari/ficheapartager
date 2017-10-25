@@ -1,0 +1,6 @@
+AppBundle\Entity\Contact:
+    contact{1..10}:
+        firstName: 'Mike'
+        lastName: 'Fiari'
+        email: 'fiarimike@yahoo.fr'
+        telephone: '0100000000'
