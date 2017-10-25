@@ -18,6 +18,9 @@ if (isset($_GET["module"])) {
 		case "public_categorie" :
 			$controller = new Controller_Public_Categorie();
 			break;
+		case "public_fiche" :
+			$controller = new Controller_Public_Fiche();
+			break;
 	}
 	$controller->handle();
 } else {
